@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>惩罚轮盘 - Punishment Roulette 原型展示</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c1d 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+        }
+
+        .prototype-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 60px;
+            padding: 60px;
+            justify-items: center;
+        }
+
+        .prototype-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .prototype-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .iphone-container {
+            width: 393px;
+            height: 852px;
+            border-radius: 55px;
+            overflow: hidden;
+            position: relative;
+            background: #000;
+            box-shadow: 
+                0 0 0 3px #1a1a1a,
+                0 0 0 6px #0d0d0d,
+                0 50px 100px -20px rgba(0, 0, 0, 0.6),
+                inset 0 0 10px rgba(255,255,255,0.05);
+        }
+
+        .iphone-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 50px;
+        }
+
+        .page-header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .page-header p {
+            color: rgba(255,255,255,0.6);
+            font-size: 18px;
+        }
+
+        .flow-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .flow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+
+        .flow-dot.active {
+            background: #ff6b6b;
+        }
+
+        .section-title {
+            width: 100%;
+            text-align: center;
+            padding: 40px 20px 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            margin: 40px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <h1>🎰 惩罚轮盘</h1>
+        <p>Punishment Roulette - 高保真原型设计</p>
+        <p style="color: rgba(255,255,255,0.4); font-size: 14px; margin-top: 8px;">让乐队排练迟到变得有趣的惩罚游戏 App</p>
+    </div>
+
+    <h2 class="section-title">📱 用户流程 - 入门引导</h2>
+    
+    <div class="prototype-grid">
+        <!-- 1. Welcome Screen -->
+        <div class="prototype-item">
+            <div class="prototype-label">01 · 欢迎页</div>
+            <div class="iphone-container">
+                <iframe src="pages/welcome.html"></iframe>
+            </div>
+            <div class="flow-indicator">
+                <div class="flow-dot active"></div>
+                <div class="flow-dot"></div>
+                <div class="flow-dot"></div>
+                <div class="flow-dot"></div>
+            </div>
+        </div>
+
+        <!-- 2. Login Screen -->
+        <div class="prototype-item">
+            <div class="prototype-label">02 · 输入姓名</div>
+            <div class="iphone-container">
+                <iframe src="pages/login.html"></iframe>
+            </div>
+            <div class="flow-indicator">
+                <div class="flow-dot"></div>
+                <div class="flow-dot active"></div>
+                <div class="flow-dot"></div>
+                <div class="flow-dot"></div>
+            </div>
+        </div>
+
+        <!-- 3. Join or Create -->
+        <div class="prototype-item">
+            <div class="prototype-label">03 · 加入或创建群组</div>
+            <div class="iphone-container">
+                <iframe src="pages/join-create.html"></iframe>
+            </div>
+            <div class="flow-indicator">
+                <div class="flow-dot"></div>
+                <div class="flow-dot"></div>
+                <div class="flow-dot active"></div>
+                <div class="flow-dot"></div>
+            </div>
+        </div>
+
+        <!-- 4. Join Group -->
+        <div class="prototype-item">
+            <div class="prototype-label">04 · 输入邀请码</div>
+            <div class="iphone-container">
+                <iframe src="pages/join-group.html"></iframe>
+            </div>
+            <div class="flow-indicator">
+                <div class="flow-dot"></div>
+                <div class="flow-dot"></div>
+                <div class="flow-dot"></div>
+                <div class="flow-dot active"></div>
+            </div>
+        </div>
+
+        <!-- 5. Create Group -->
+        <div class="prototype-item">
+            <div class="prototype-label">05 · 创建新群组 (Admin)</div>
+            <div class="iphone-container">
+                <iframe src="pages/create-group.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2 class="section-title">🪑 核心功能 - 圆桌会议</h2>
+
+    <div class="prototype-grid">
+        <!-- 6. Round Table -->
+        <div class="prototype-item">
+            <div class="prototype-label">06 · 圆桌会议主界面</div>
+            <div class="iphone-container">
+                <iframe src="pages/round-table.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 7. Add Punishment -->
+        <div class="prototype-item">
+            <div class="prototype-label">07 · 添加惩罚项目</div>
+            <div class="iphone-container">
+                <iframe src="pages/add-punishment.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 8. Waiting Room -->
+        <div class="prototype-item">
+            <div class="prototype-label">08 · 等待设置完成</div>
+            <div class="iphone-container">
+                <iframe src="pages/waiting-room.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2 class="section-title">🎲 惩罚抽取流程</h2>
+
+    <div class="prototype-grid">
+        <!-- 9. Late Selection -->
+        <div class="prototype-item">
+            <div class="prototype-label">09 · 选择迟到者 (Admin)</div>
+            <div class="iphone-container">
+                <iframe src="pages/late-selection.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 10. Punishment Input -->
+        <div class="prototype-item">
+            <div class="prototype-label">10 · 描述今日心情</div>
+            <div class="iphone-container">
+                <iframe src="pages/punishment-input.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 11. Punishment Roll -->
+        <div class="prototype-item">
+            <div class="prototype-label">11 · 惩罚轮盘抽取</div>
+            <div class="iphone-container">
+                <iframe src="pages/punishment-roll.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 12. Punishment Result -->
+        <div class="prototype-item">
+            <div class="prototype-label">12 · 惩罚结果展示</div>
+            <div class="iphone-container">
+                <iframe src="pages/punishment-result.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 13. Guess Author -->
+        <div class="prototype-item">
+            <div class="prototype-label">13 · 猜测惩罚来源</div>
+            <div class="iphone-container">
+                <iframe src="pages/guess-author.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2 class="section-title">⚙️ 设置与解锁</h2>
+
+    <div class="prototype-grid">
+        <!-- 14. Settings -->
+        <div class="prototype-item">
+            <div class="prototype-label">14 · 群组设置</div>
+            <div class="iphone-container">
+                <iframe src="pages/settings.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 15. Unlock -->
+        <div class="prototype-item">
+            <div class="prototype-label">15 · 解锁惩罚归属</div>
+            <div class="iphone-container">
+                <iframe src="pages/unlock.html"></iframe>
+            </div>
+        </div>
+
+        <!-- 16. History -->
+        <div class="prototype-item">
+            <div class="prototype-label">16 · 惩罚历史记录</div>
+            <div class="iphone-container">
+                <iframe src="pages/history.html"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 60px 20px; color: rgba(255,255,255,0.3); font-size: 14px;">
+        <p>惩罚轮盘 Punishment Roulette © 2025</p>
+        <p style="margin-top: 8px;">Designed for React Native + Supabase Development</p>
+    </footer>
+</body>
+</html>
+

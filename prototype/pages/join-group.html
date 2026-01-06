@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入群组 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-6 flex flex-col" style="padding-top: 16px;">
+            
+            <!-- Back Button -->
+            <button class="w-10 h-10 rounded-full bg-white/[0.06] flex items-center justify-center mb-8">
+                <i class="fas fa-chevron-left text-white/60 text-sm"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center mb-10">
+                <div class="w-[72px] h-[72px] rounded-[22px] bg-gradient-to-br from-cyan-500/20 to-blue-600/20 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-ticket text-cyan-400 text-[28px]"></i>
+                </div>
+                <h1 class="text-[24px] font-bold text-white mb-2">输入邀请码</h1>
+                <p class="text-white/45 text-[14px]">向群组管理员获取4位邀请码</p>
+            </div>
+
+            <!-- Code Input -->
+            <div class="code-input mb-6">
+                <input type="text" maxlength="1" class="code-digit" value="8">
+                <input type="text" maxlength="1" class="code-digit" value="4">
+                <input type="text" maxlength="1" class="code-digit" value="2">
+                <input type="text" maxlength="1" class="code-digit" value="1">
+            </div>
+
+            <!-- Hint -->
+            <p class="text-white/30 text-center text-[13px] mb-8">
+                <i class="fas fa-info-circle mr-1"></i>
+                邀请码不区分大小写
+            </p>
+
+            <!-- Found Group Preview -->
+            <div class="glass-card-strong p-5 mb-6">
+                <p class="text-white/40 text-[11px] mb-3 font-medium">找到群组</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-[16px] bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
+                        <span class="text-[28px]">🎸</span>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-white font-semibold text-[17px]">周末排练小队</h3>
+                        <p class="text-white/45 text-[13px]">5 位成员 · 创建于3天前</p>
+                    </div>
+                </div>
+                
+                <!-- Member Avatars -->
+                <div class="mt-4 pt-4 border-t border-white/[0.06]">
+                    <p class="text-white/35 text-[11px] mb-3">群组成员</p>
+                    <div class="flex -space-x-2">
+                        <div class="member-avatar size-sm avatar-gradient-1">Mike</div>
+                        <div class="member-avatar size-sm avatar-gradient-2">Lisa</div>
+                        <div class="member-avatar size-sm avatar-gradient-5">Emma</div>
+                        <div class="member-avatar size-sm avatar-gradient-6">Jay</div>
+                        <div class="member-avatar size-sm" style="background: rgba(255,255,255,0.1); font-size: 11px;">+1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacer -->
+            <div class="flex-1"></div>
+
+            <!-- Join Button -->
+            <button class="btn-primary mb-8 flex items-center justify-center gap-2">
+                <span>加入群组</span>
+                <i class="fas fa-arrow-right text-[14px]"></i>
+            </button>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

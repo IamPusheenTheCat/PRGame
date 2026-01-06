@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>等待设置 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        @keyframes progress-shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: progress-shine 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area px-5" style="height: calc(100% - 59px - 83px);">
+            
+            <!-- Header -->
+            <div class="text-center pt-3 mb-6">
+                <div class="w-[64px] h-[64px] rounded-[20px] bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mx-auto mb-3 float-animation">
+                    <span class="text-[32px]">⏳</span>
+                </div>
+                <h1 class="text-[22px] font-bold text-white mb-1">等待所有人设置</h1>
+                <p class="text-white/45 text-[14px]">还有 1 人未完成惩罚项目设置</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="mb-6">
+                <div class="flex justify-between text-[13px] mb-2">
+                    <span class="text-white/50">完成进度</span>
+                    <span class="text-white font-medium">5/6</span>
+                </div>
+                <div class="h-2.5 bg-white/[0.06] rounded-full overflow-hidden relative">
+                    <div class="progress-bar h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full relative" 
+                         style="width: 83%;"></div>
+                </div>
+            </div>
+
+            <!-- Member List -->
+            <div class="space-y-2.5 mb-5">
+                <p class="text-white/40 text-[11px] font-medium">成员状态</p>
+                
+                <!-- Completed Members -->
+                <div class="glass-card p-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="member-avatar size-sm avatar-gradient-1">Mike</div>
+                            <span class="text-white text-[13px]">Mike</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-emerald-400 text-[12px]">已完成</span>
+                            <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                <i class="fas fa-check text-emerald-400 text-[9px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card p-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="member-avatar size-sm avatar-gradient-2">Lisa</div>
+                            <span class="text-white text-[13px]">Lisa</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-emerald-400 text-[12px]">已完成</span>
+                            <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                <i class="fas fa-check text-emerald-400 text-[9px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="member-avatar size-sm avatar-gradient-5">Emma</div>
+                            <span class="text-white text-[13px]">Emma</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-emerald-400 text-[12px]">已完成</span>
+                            <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                <i class="fas fa-check text-emerald-400 text-[9px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="member-avatar size-sm avatar-gradient-6">Jay</div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-white text-[13px]">Jay</span>
+                                <span class="badge badge-admin text-[9px] py-0.5 px-1.5">Admin</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-emerald-400 text-[12px]">已完成</span>
+                            <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                <i class="fas fa-check text-emerald-400 text-[9px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-3">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="member-avatar size-sm avatar-gradient-you">Alex</div>
+                            <span class="text-cyan-400 text-[13px]">Alex (你)</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-emerald-400 text-[12px]">已完成</span>
+                            <div class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                                <i class="fas fa-check text-emerald-400 text-[9px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pending Member -->
+                <div class="glass-card p-3 border border-amber-500/25" style="background: rgba(251,191,36,0.06);">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="member-avatar size-sm avatar-gradient-3 pulse-soft">CJ</div>
+                            <span class="text-white text-[13px]">CJ</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-amber-400 text-[12px]">待设置</span>
+                            <button class="px-2.5 py-1 rounded-[8px] bg-amber-500/20 text-amber-400 text-[11px] font-medium">
+                                <i class="fas fa-bell mr-1 text-[9px]"></i>提醒
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tip -->
+            <div class="glass-card p-3.5">
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-[8px] bg-blue-500/15 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-lightbulb text-blue-400 text-[11px]"></i>
+                    </div>
+                    <p class="text-white/45 text-[12px] leading-relaxed">
+                        每位成员需要至少收到一条惩罚项目。设置完成后，Admin 可以开始选择迟到者进行抽取。
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab-item active">
+                <i class="fas fa-users"></i>
+                <span>圆桌</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-dice"></i>
+                <span>抽取</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>历史</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-gear"></i>
+                <span>设置</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

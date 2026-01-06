@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>描述心情 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        .mood-btn.selected {
+            transform: scale(1.05);
+            background: rgba(255, 87, 87, 0.15);
+            border-color: #ff5757;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-5 flex flex-col" style="padding-top: 10px;">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-5">
+                <button class="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+                    <i class="fas fa-chevron-left text-white/60 text-[13px]"></i>
+                </button>
+                <h1 class="text-white font-semibold text-[17px]">抽取惩罚</h1>
+                <div class="w-9"></div>
+            </div>
+
+            <!-- User Being Punished -->
+            <div class="text-center mb-6">
+                <div class="relative inline-block mb-3">
+                    <div class="member-avatar avatar-gradient-3" style="width: 80px; height: 80px; font-size: 24px; box-shadow: 0 0 0 3px #ff5757, 0 0 30px rgba(255,87,87,0.3);">
+                        CJ
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-[#ff5757] flex items-center justify-center">
+                        <span class="text-[16px]">😰</span>
+                    </div>
+                </div>
+                <h2 class="text-[20px] font-bold text-white mb-1">CJ 要被惩罚了！</h2>
+                <p class="text-white/45 text-[14px]">今天迟到了 15 分钟</p>
+            </div>
+
+            <!-- AI Matching Info -->
+            <div class="glass-card p-4 mb-5 border border-cyan-500/20" style="background: rgba(6,182,212,0.06);">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-[10px] bg-cyan-500/15 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-cyan-400 text-[13px]"></i>
+                    </div>
+                    <div>
+                        <p class="text-cyan-400 text-[13px] font-medium mb-1">AI 智能匹配</p>
+                        <p class="text-white/50 text-[12px] leading-relaxed">告诉我们你今天的心情，AI 会为你匹配最合适的惩罚项目</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mood Selection -->
+            <div class="mb-5">
+                <p class="text-white/50 text-[13px] font-medium mb-3">今天心情怎么样？</p>
+                <div class="flex justify-between gap-2.5">
+                    <button class="mood-btn flex-1 py-3.5 rounded-[16px] bg-white/[0.04] border border-white/[0.06] flex flex-col items-center gap-1.5 transition-all">
+                        <span class="text-[26px]">😊</span>
+                        <span class="text-white/50 text-[11px]">开心</span>
+                    </button>
+                    <button class="mood-btn selected flex-1 py-3.5 rounded-[16px] bg-[#ff5757]/15 border border-[#ff5757]/40 flex flex-col items-center gap-1.5 transition-all">
+                        <span class="text-[26px]">😅</span>
+                        <span class="text-white text-[11px]">尴尬</span>
+                    </button>
+                    <button class="mood-btn flex-1 py-3.5 rounded-[16px] bg-white/[0.04] border border-white/[0.06] flex flex-col items-center gap-1.5 transition-all">
+                        <span class="text-[26px]">😤</span>
+                        <span class="text-white/50 text-[11px]">不爽</span>
+                    </button>
+                    <button class="mood-btn flex-1 py-3.5 rounded-[16px] bg-white/[0.04] border border-white/[0.06] flex flex-col items-center gap-1.5 transition-all">
+                        <span class="text-[26px]">😴</span>
+                        <span class="text-white/50 text-[11px]">疲惫</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="mb-5">
+                <p class="text-white/50 text-[13px] font-medium mb-3">想说点什么？（可选）</p>
+                <textarea class="input-field w-full resize-none text-[15px]" 
+                          rows="3" 
+                          placeholder="例如：今天堵车实在太严重了，希望惩罚轻一点..."
+                          style="min-height: 80px;">今天早上闹钟没响，其实也不算我的错...</textarea>
+            </div>
+
+            <!-- Punishment Preference -->
+            <div class="mb-5">
+                <p class="text-white/50 text-[13px] font-medium mb-3">惩罚偏好</p>
+                <div class="flex flex-wrap gap-2">
+                    <button class="px-4 py-2 rounded-full bg-[#ff5757]/15 border border-[#ff5757]/40 text-[#ff5757] text-[13px] font-medium">
+                        轻松一点
+                    </button>
+                    <button class="px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/50 text-[13px]">
+                        来点刺激
+                    </button>
+                    <button class="px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/50 text-[13px]">
+                        随机就好
+                    </button>
+                </div>
+            </div>
+
+            <!-- Spacer -->
+            <div class="flex-1"></div>
+
+            <!-- Actions -->
+            <div class="space-y-3 mb-8">
+                <button class="btn-primary flex items-center justify-center gap-2">
+                    <i class="fas fa-wand-magic-sparkles text-[13px]"></i>
+                    <span>AI 智能匹配</span>
+                </button>
+                <button class="btn-secondary flex items-center justify-center gap-2">
+                    <i class="fas fa-dice text-[13px]"></i>
+                    <span>直接随机抽取</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

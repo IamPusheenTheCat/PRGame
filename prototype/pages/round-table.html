@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆桌会议 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area px-5" style="height: calc(100% - 59px - 83px);">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-4 pt-1">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-[14px] bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
+                        <span class="text-xl">🎸</span>
+                    </div>
+                    <div>
+                        <h1 class="text-white font-semibold text-[17px]">周末排练小队</h1>
+                        <p class="text-white/40 text-[13px]">邀请码: <span class="text-cyan-400 font-mono font-semibold">8421</span></p>
+                    </div>
+                </div>
+                <button class="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+                    <i class="fas fa-ellipsis text-white/50 text-[14px]"></i>
+                </button>
+            </div>
+
+            <!-- Round Table -->
+            <div class="round-table-container">
+                <!-- Background Rings -->
+                <div class="table-ring table-ring-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+                <div class="table-ring table-ring-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+
+                <!-- Center -->
+                <div class="table-center">
+                    <span class="text-2xl">🎰</span>
+                    <span class="text-white/50 text-[12px] mt-1 font-medium">6人</span>
+                </div>
+
+                <!-- Member 1 (Top) - Mike - Completed -->
+                <div class="absolute flex flex-col items-center" style="top: 5px; left: 50%; transform: translateX(-50%);">
+                    <div class="member-avatar completed avatar-gradient-1">
+                        Mike
+                        <div class="avatar-badge check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <span class="text-white text-[12px] mt-2 font-semibold">Mike</span>
+                    <span class="text-white/40 text-[11px]">🎸 吉他</span>
+                </div>
+
+                <!-- Member 2 (Top Right) - Lisa - Completed -->
+                <div class="absolute flex flex-col items-center" style="top: 55px; right: 20px;">
+                    <div class="member-avatar completed avatar-gradient-2">
+                        Lisa
+                        <div class="avatar-badge check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <span class="text-white text-[12px] mt-2 font-semibold">Lisa</span>
+                    <span class="text-white/40 text-[11px]">🎹 键盘</span>
+                </div>
+
+                <!-- Member 3 (Bottom Right) - Christopher (Long name) - Pending -->
+                <div class="absolute flex flex-col items-center" style="bottom: 55px; right: 20px;">
+                    <div class="member-avatar pending avatar-gradient-3 pulse-soft">
+                        CJ
+                    </div>
+                    <span class="text-white text-[12px] mt-2 font-semibold">CJ</span>
+                    <span class="text-white/40 text-[11px]">🎷 萨克斯</span>
+                </div>
+
+                <!-- Member 4 (Bottom) - You (Alex) -->
+                <div class="absolute flex flex-col items-center" style="bottom: 5px; left: 50%; transform: translateX(-50%);">
+                    <div class="member-avatar is-you avatar-gradient-you">
+                        Alex
+                        <div class="avatar-badge you">你</div>
+                    </div>
+                    <span class="text-cyan-400 text-[12px] mt-2 font-semibold">Alex</span>
+                    <span class="text-white/40 text-[11px]">🥁 鼓</span>
+                </div>
+
+                <!-- Member 5 (Bottom Left) - Emma - Completed -->
+                <div class="absolute flex flex-col items-center" style="bottom: 55px; left: 20px;">
+                    <div class="member-avatar completed avatar-gradient-5">
+                        Emma
+                        <div class="avatar-badge check"><i class="fas fa-check"></i></div>
+                    </div>
+                    <span class="text-white text-[12px] mt-2 font-semibold">Emma</span>
+                    <span class="text-white/40 text-[11px]">🎤 主唱</span>
+                </div>
+
+                <!-- Member 6 (Top Left) - Jay - Admin -->
+                <div class="absolute flex flex-col items-center" style="top: 55px; left: 20px;">
+                    <div class="member-avatar completed avatar-gradient-6">
+                        Jay
+                        <div class="avatar-badge admin"><i class="fas fa-crown text-[8px]"></i></div>
+                    </div>
+                    <span class="text-white text-[12px] mt-2 font-semibold">Jay</span>
+                    <span class="text-white/40 text-[11px]">🎸 贝斯</span>
+                </div>
+            </div>
+
+            <!-- Status Card -->
+            <div class="glass-card p-4 mb-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-[12px] bg-amber-500/15 flex items-center justify-center">
+                            <i class="fas fa-hourglass-half text-amber-400 text-[14px]"></i>
+                        </div>
+                        <div>
+                            <p class="text-white text-[14px] font-medium">等待 1 人设置</p>
+                            <p class="text-white/40 text-[12px]">CJ 还未设置惩罚项目</p>
+                        </div>
+                    </div>
+                    <button class="px-3 py-1.5 rounded-[10px] bg-white/[0.06] text-white/60 text-[12px] font-medium">
+                        提醒
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Hint -->
+            <div class="text-center">
+                <p class="text-white/35 text-[13px]">
+                    <i class="fas fa-hand-pointer mr-1.5"></i>
+                    点击成员头像为他们添加惩罚
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab-item active">
+                <i class="fas fa-users"></i>
+                <span>圆桌</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-dice"></i>
+                <span>抽取</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>历史</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-gear"></i>
+                <span>设置</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

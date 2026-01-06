@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加入或创建 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        .option-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .option-card:active {
+            transform: scale(0.98);
+        }
+        
+        .option-card.selected {
+            border-color: #ff5757;
+            background: rgba(255, 87, 87, 0.08);
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-6 flex flex-col" style="padding-top: 16px;">
+            
+            <!-- Back Button -->
+            <button class="w-10 h-10 rounded-full bg-white/[0.06] flex items-center justify-center mb-6">
+                <i class="fas fa-chevron-left text-white/60 text-sm"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <div class="member-avatar size-lg avatar-gradient-you mx-auto mb-4" style="width: 72px; height: 72px; font-size: 22px;">
+                    Alex
+                </div>
+                <h1 class="text-[24px] font-bold text-white mb-2">欢迎，Alex！</h1>
+                <p class="text-white/50 text-[15px]">选择你想要做什么</p>
+            </div>
+
+            <!-- Options -->
+            <div class="space-y-4 mb-6">
+                <!-- Join Group -->
+                <div class="option-card selected">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-[14px] bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-user-plus text-white text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-white font-semibold text-[16px] mb-1">加入群组</h3>
+                            <p class="text-white/45 text-[13px] leading-relaxed">输入4位邀请码，加入朋友创建的惩罚群组</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-[#ff5757] flex items-center justify-center mt-1">
+                            <div class="w-2.5 h-2.5 rounded-full bg-[#ff5757]"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Create Group -->
+                <div class="option-card">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-[14px] bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-plus text-white text-lg"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="text-white font-semibold text-[16px] mb-1">创建新群组</h3>
+                            <p class="text-white/45 text-[13px] leading-relaxed">成为管理员，邀请朋友加入你的惩罚轮盘</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/20 mt-1"></div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-white/[0.04]">
+                        <span class="badge badge-admin text-[11px]">Admin</span>
+                        <span class="text-white/30 text-[11px] ml-2">你将成为群组管理员</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Groups -->
+            <div class="mb-6">
+                <h3 class="text-white/40 text-[12px] font-medium mb-3">最近加入的群组</h3>
+                <div class="glass-card p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-11 h-11 rounded-[12px] bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
+                                <span class="text-lg">🎸</span>
+                            </div>
+                            <div>
+                                <p class="text-white font-medium text-[14px]">摇滚乐队</p>
+                                <p class="text-white/40 text-[12px]">5 位成员 · 3天前</p>
+                            </div>
+                        </div>
+                        <button class="px-3.5 py-2 rounded-[10px] bg-white/[0.06] text-white/60 text-[13px] font-medium">
+                            重新加入
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacer -->
+            <div class="flex-1"></div>
+
+            <!-- Continue Button -->
+            <button class="btn-primary mb-8 flex items-center justify-center gap-2">
+                <span>继续</span>
+                <i class="fas fa-arrow-right text-[14px]"></i>
+            </button>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜测来源 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        .guess-card {
+            transition: all 0.2s ease;
+        }
+        
+        .guess-card.selected {
+            background: rgba(255, 87, 87, 0.1);
+            border-color: #ff5757;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-5 flex flex-col" style="padding-top: 10px;">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-5">
+                <button class="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+                    <i class="fas fa-chevron-left text-white/60 text-[13px]"></i>
+                </button>
+                <h1 class="text-white font-semibold text-[17px]">猜猜是谁写的</h1>
+                <div class="w-9"></div>
+            </div>
+
+            <!-- Punishment Card -->
+            <div class="glass-card p-4 mb-5 border border-[#ff5757]/25" style="background: rgba(255,87,87,0.06);">
+                <div class="flex items-center gap-4 mb-3">
+                    <div class="w-14 h-14 rounded-[16px] bg-gradient-to-br from-[#ff5757] to-orange-500 flex items-center justify-center">
+                        <span class="text-[28px]">🎭</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold text-[16px]">学猫叫一分钟</h3>
+                        <p class="text-white/45 text-[13px]">必须录视频发群里</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="badge badge-success text-[10px]">
+                        <i class="fas fa-check mr-1"></i>已完成
+                    </span>
+                    <span class="text-white/35 text-[12px]">2025年1月6日</span>
+                </div>
+            </div>
+
+            <!-- Guess Prompt -->
+            <div class="text-center mb-5">
+                <p class="text-white/55 text-[14px]">你觉得这个惩罚是谁给你写的？</p>
+                <p class="text-white/30 text-[12px] mt-1">猜对有额外奖励哦！</p>
+            </div>
+
+            <!-- Member Selection -->
+            <div class="space-y-2.5 mb-5 flex-1 overflow-y-auto">
+                <div class="guess-card glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-1">Mike</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Mike</p>
+                            <p class="text-white/40 text-[12px]">🎸 吉他</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+                
+                <div class="guess-card selected glass-card p-3.5 cursor-pointer border border-[#ff5757]">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-2" style="box-shadow: 0 0 0 2px #ff5757;">Lisa</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Lisa</p>
+                            <p class="text-white/40 text-[12px]">🎹 键盘</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-[#ff5757] bg-[#ff5757] flex items-center justify-center">
+                            <i class="fas fa-check text-white text-[9px]"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guess-card glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-5">Emma</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Emma</p>
+                            <p class="text-white/40 text-[12px]">🎤 主唱</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+
+                <div class="guess-card glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-6">Jay</div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <p class="text-white font-medium text-[14px]">Jay</p>
+                                <span class="badge badge-admin text-[9px] py-0.5 px-1.5">Admin</span>
+                            </div>
+                            <p class="text-white/40 text-[12px]">🎸 贝斯</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+
+                <div class="guess-card glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-you">Alex</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Alex</p>
+                            <p class="text-white/40 text-[12px]">🥁 鼓</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hint -->
+            <div class="glass-card p-3.5 mb-4 border border-amber-500/20" style="background: rgba(251,191,36,0.06);">
+                <div class="flex items-start gap-3">
+                    <span class="text-[18px]">💡</span>
+                    <div>
+                        <p class="text-amber-400 text-[13px] font-medium">提示</p>
+                        <p class="text-white/45 text-[12px]">这个人最近学了一只叫"咪咪"的猫...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn-primary mb-8 flex items-center justify-center gap-2">
+                <i class="fas fa-check text-[13px]"></i>
+                <span>确认猜测</span>
+            </button>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择迟到者 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        .member-select {
+            transition: all 0.2s ease;
+        }
+        
+        .member-select.selected {
+            background: rgba(255, 87, 87, 0.1);
+            border-color: #ff5757;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area px-5" style="height: calc(100% - 59px - 83px);">
+            
+            <!-- Admin Badge -->
+            <div class="flex justify-center pt-1 mb-3">
+                <span class="badge badge-admin text-[11px]">
+                    <i class="fas fa-crown mr-1"></i>
+                    Admin 操作
+                </span>
+            </div>
+
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <div class="w-[64px] h-[64px] rounded-[20px] bg-gradient-to-br from-[#ff5757]/20 to-orange-500/20 flex items-center justify-center mx-auto mb-3">
+                    <span class="text-[32px]">😈</span>
+                </div>
+                <h1 class="text-[22px] font-bold text-white mb-1">谁迟到了？</h1>
+                <p class="text-white/45 text-[14px]">选择今天的幸运儿来抽取惩罚</p>
+            </div>
+
+            <!-- Date Selector -->
+            <div class="flex items-center justify-center gap-3 mb-5">
+                <button class="w-8 h-8 rounded-[10px] bg-white/[0.04] flex items-center justify-center">
+                    <i class="fas fa-chevron-left text-white/35 text-[11px]"></i>
+                </button>
+                <div class="glass-card px-4 py-2">
+                    <p class="text-white text-[14px] font-medium">2025年1月6日 周一</p>
+                </div>
+                <button class="w-8 h-8 rounded-[10px] bg-white/[0.04] flex items-center justify-center">
+                    <i class="fas fa-chevron-right text-white/35 text-[11px]"></i>
+                </button>
+            </div>
+
+            <!-- Member Selection -->
+            <div class="space-y-2.5 mb-5">
+                <p class="text-white/40 text-[11px] font-medium">选择迟到成员（可多选）</p>
+                
+                <div class="member-select glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-1">Mike</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Mike</p>
+                            <p class="text-white/40 text-[12px]">🎸 吉他 · 5 项惩罚待抽</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+                
+                <div class="member-select glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-2">Lisa</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Lisa</p>
+                            <p class="text-white/40 text-[12px]">🎹 键盘 · 4 项惩罚待抽</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+
+                <div class="member-select selected glass-card p-3.5 cursor-pointer border border-[#ff5757]">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-3" style="box-shadow: 0 0 0 2px #ff5757;">CJ</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">CJ</p>
+                            <p class="text-white/40 text-[12px]">🎷 萨克斯 · 6 项惩罚待抽</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-[#ff5757] bg-[#ff5757] flex items-center justify-center">
+                            <i class="fas fa-check text-white text-[9px]"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member-select glass-card p-3.5 cursor-pointer border border-transparent">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-5">Emma</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Emma</p>
+                            <p class="text-white/40 text-[12px]">🎤 主唱 · 5 项惩罚待抽</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/15"></div>
+                    </div>
+                </div>
+
+                <div class="member-select glass-card p-3.5 cursor-pointer border border-transparent opacity-50">
+                    <div class="flex items-center gap-3">
+                        <div class="member-avatar size-sm avatar-gradient-you">Alex</div>
+                        <div class="flex-1">
+                            <p class="text-white font-medium text-[14px]">Alex (你)</p>
+                            <p class="text-white/40 text-[12px]">🥁 鼓 · 不能选自己</p>
+                        </div>
+                        <div class="w-5 h-5 rounded-full border-2 border-white/10"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selected Count -->
+            <div class="glass-card p-4 mb-4 border border-[#ff5757]/30" style="background: rgba(255,87,87,0.08);">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <span class="text-[22px]">🎯</span>
+                        <div>
+                            <p class="text-white text-[14px] font-medium">已选择 1 人</p>
+                            <p class="text-white/45 text-[12px]">CJ 将要抽取惩罚</p>
+                        </div>
+                    </div>
+                    <p class="text-[#ff5757] text-[24px] font-bold">1</p>
+                </div>
+            </div>
+
+            <!-- Start Button -->
+            <button class="btn-primary flex items-center justify-center gap-2">
+                <i class="fas fa-dice text-[14px]"></i>
+                <span>开始抽取</span>
+            </button>
+
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab-item">
+                <i class="fas fa-users"></i>
+                <span>圆桌</span>
+            </div>
+            <div class="tab-item active">
+                <i class="fas fa-dice"></i>
+                <span>抽取</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>历史</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-gear"></i>
+                <span>设置</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>
+

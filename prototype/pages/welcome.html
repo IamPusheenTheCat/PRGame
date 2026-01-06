@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .float-slow { animation: float-slow 4s ease-in-out infinite; }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(255, 87, 87, 0.25),
+                            0 0 60px rgba(255, 87, 87, 0.1);
+            }
+            50% { 
+                box-shadow: 0 0 40px rgba(255, 87, 87, 0.35),
+                            0 0 80px rgba(255, 87, 87, 0.15);
+            }
+        }
+        
+        .pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full flex flex-col items-center justify-center px-8 relative overflow-hidden" style="height: calc(100% - 59px);">
+            
+            <!-- Subtle background pattern -->
+            <div class="absolute inset-0 opacity-[0.015]" style="background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+
+            <!-- Logo -->
+            <div class="relative mb-10 float-slow z-10">
+                <!-- Outer rings -->
+                <div class="absolute inset-[-16px] rounded-full border border-[#ff5757]/20"></div>
+                <div class="absolute inset-[-32px] rounded-full border border-[#ff5757]/10"></div>
+                
+                <!-- Main logo - 彩色渐变背景 -->
+                <div class="w-[100px] h-[100px] rounded-[28px] bg-gradient-to-br from-[#ff5757] to-[#ff4040] flex items-center justify-center pulse-glow">
+                    <i class="fas fa-dice text-white text-[42px]"></i>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-[34px] font-bold mb-2 text-center tracking-tight z-10 text-white">
+                惩罚轮盘
+            </h1>
+            <p class="text-white/40 text-[15px] mb-3 text-center z-10 font-medium tracking-wide">Punishment Roulette</p>
+            
+            <!-- Tagline -->
+            <p class="text-white/30 text-[14px] text-center mb-14 max-w-[240px] leading-relaxed z-10">
+                让迟到变得有趣<br>
+                让惩罚充满惊喜
+            </p>
+
+            <!-- Feature Icons -->
+            <div class="flex gap-5 mb-16 z-10">
+                <div class="flex flex-col items-center gap-2.5">
+                    <div class="w-[56px] h-[56px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
+                        <i class="fas fa-users text-white/70 text-[20px]"></i>
+                    </div>
+                    <span class="text-white/35 text-[11px] font-medium">组队</span>
+                </div>
+                <div class="flex flex-col items-center gap-2.5">
+                    <div class="w-[56px] h-[56px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
+                        <i class="fas fa-pen text-white/70 text-[18px]"></i>
+                    </div>
+                    <span class="text-white/35 text-[11px] font-medium">设置</span>
+                </div>
+                <div class="flex flex-col items-center gap-2.5">
+                    <div class="w-[56px] h-[56px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
+                        <i class="fas fa-shuffle text-white/70 text-[18px]"></i>
+                    </div>
+                    <span class="text-white/35 text-[11px] font-medium">抽取</span>
+                </div>
+                <div class="flex flex-col items-center gap-2.5">
+                    <div class="w-[56px] h-[56px] rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center">
+                        <i class="fas fa-check text-white/70 text-[18px]"></i>
+                    </div>
+                    <span class="text-white/35 text-[11px] font-medium">执行</span>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <button class="btn-primary w-full max-w-[280px] flex items-center justify-center gap-3 z-10">
+                <span>开始游戏</span>
+                <i class="fas fa-arrow-right text-[14px]"></i>
+            </button>
+
+            <!-- Version -->
+            <p class="text-white/15 text-[11px] mt-10 z-10 tracking-wider">VERSION 1.0.0</p>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

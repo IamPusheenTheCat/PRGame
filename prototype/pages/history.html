@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area px-5" style="height: calc(100% - 59px - 83px);">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between pt-1 mb-4">
+                <h1 class="text-[24px] font-bold text-white">惩罚历史</h1>
+                <button class="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+                    <i class="fas fa-filter text-white/50 text-[13px]"></i>
+                </button>
+            </div>
+
+            <!-- Stats -->
+            <div class="grid grid-cols-3 gap-2.5 mb-5">
+                <div class="glass-card p-3 text-center">
+                    <p class="text-[22px] font-bold text-[#ff5757]">12</p>
+                    <p class="text-white/40 text-[11px]">总惩罚</p>
+                </div>
+                <div class="glass-card p-3 text-center">
+                    <p class="text-[22px] font-bold text-emerald-400">10</p>
+                    <p class="text-white/40 text-[11px]">已完成</p>
+                </div>
+                <div class="glass-card p-3 text-center">
+                    <p class="text-[22px] font-bold text-amber-400">2</p>
+                    <p class="text-white/40 text-[11px]">待执行</p>
+                </div>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex gap-2 mb-4 overflow-x-auto pb-1 -mx-1 px-1">
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-[#ff5757]/15 border border-[#ff5757]/40 text-[#ff5757] text-[13px] font-medium">
+                    全部
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/50 text-[13px]">
+                    我的惩罚
+                </button>
+                <button class="flex-shrink-0 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.06] text-white/50 text-[13px]">
+                    我写的
+                </button>
+            </div>
+
+            <!-- History List -->
+            <div class="space-y-2.5">
+                
+                <!-- Date Divider -->
+                <p class="text-white/30 text-[11px] font-medium">今天</p>
+                
+                <!-- History Item 1 -->
+                <div class="glass-card p-3.5">
+                    <div class="flex items-start gap-3">
+                        <div class="w-11 h-11 rounded-[12px] bg-gradient-to-br from-[#ff5757] to-orange-500 flex items-center justify-center flex-shrink-0">
+                            <span class="text-[20px]">🎭</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="member-avatar size-sm avatar-gradient-3" style="width: 20px; height: 20px; font-size: 8px;">CJ</div>
+                                <span class="text-white text-[13px] font-medium">CJ</span>
+                                <span class="text-white/30 text-[11px]">迟到15分钟</span>
+                            </div>
+                            <p class="text-white/70 text-[13px] mb-1.5">学猫叫一分钟</p>
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-success text-[10px] py-0.5">
+                                    <i class="fas fa-check mr-1"></i>已完成
+                                </span>
+                                <span class="text-white/30 text-[11px]">10:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Divider -->
+                <p class="text-white/30 text-[11px] font-medium mt-3">昨天</p>
+                
+                <!-- History Item 2 -->
+                <div class="glass-card p-3.5">
+                    <div class="flex items-start gap-3">
+                        <div class="w-11 h-11 rounded-[12px] bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center flex-shrink-0">
+                            <span class="text-[20px]">🎤</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="member-avatar size-sm avatar-gradient-1" style="width: 20px; height: 20px; font-size: 8px;">Mike</div>
+                                <span class="text-white text-[13px] font-medium">Mike</span>
+                                <span class="text-white/30 text-[11px]">迟到20分钟</span>
+                            </div>
+                            <p class="text-white/70 text-[13px] mb-1.5">唱一首情歌</p>
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-success text-[10px] py-0.5">
+                                    <i class="fas fa-check mr-1"></i>已完成
+                                </span>
+                                <span class="text-white/30 text-[11px]">14:20</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Item 3 -->
+                <div class="glass-card p-3.5">
+                    <div class="flex items-start gap-3">
+                        <div class="w-11 h-11 rounded-[12px] bg-gradient-to-br from-fuchsia-500 to-violet-600 flex items-center justify-center flex-shrink-0">
+                            <span class="text-[20px]">💃</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="member-avatar size-sm avatar-gradient-2" style="width: 20px; height: 20px; font-size: 8px;">Lisa</div>
+                                <span class="text-white text-[13px] font-medium">Lisa</span>
+                                <span class="text-white/30 text-[11px]">迟到10分钟</span>
+                            </div>
+                            <p class="text-white/70 text-[13px] mb-1.5">跳一段舞蹈</p>
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-success text-[10px] py-0.5">
+                                    <i class="fas fa-check mr-1"></i>已完成
+                                </span>
+                                <span class="text-white/30 text-[11px]">09:45</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Divider -->
+                <p class="text-white/30 text-[11px] font-medium mt-3">上周</p>
+
+                <!-- History Item 4 - Pending -->
+                <div class="glass-card p-3.5 border border-amber-500/25">
+                    <div class="flex items-start gap-3">
+                        <div class="w-11 h-11 rounded-[12px] bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center flex-shrink-0">
+                            <span class="text-[20px]">🍺</span>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="member-avatar size-sm avatar-gradient-you" style="width: 20px; height: 20px; font-size: 8px;">Alex</div>
+                                <span class="text-cyan-400 text-[13px] font-medium">Alex (你)</span>
+                                <span class="text-white/30 text-[11px]">迟到30分钟</span>
+                            </div>
+                            <p class="text-white/70 text-[13px] mb-1.5">请大家喝奶茶</p>
+                            <div class="flex items-center gap-2">
+                                <span class="badge badge-warning text-[10px] py-0.5">
+                                    <i class="fas fa-hourglass-half mr-1"></i>待执行
+                                </span>
+                                <span class="text-white/30 text-[11px]">1月2日</span>
+                            </div>
+                        </div>
+                        <button class="px-3 py-1.5 rounded-[8px] bg-[#ff5757]/15 text-[#ff5757] text-[12px] font-medium">
+                            完成
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab-item">
+                <i class="fas fa-users"></i>
+                <span>圆桌</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-dice"></i>
+                <span>抽取</span>
+            </div>
+            <div class="tab-item active">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>历史</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-gear"></i>
+                <span>设置</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

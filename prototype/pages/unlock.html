@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>解锁 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        @keyframes shimmer-gold {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .shimmer-gold {
+            background: linear-gradient(90deg, 
+                rgba(251,191,36,0.1) 25%,
+                rgba(251,191,36,0.3) 50%,
+                rgba(251,191,36,0.1) 75%
+            );
+            background-size: 200% 100%;
+            animation: shimmer-gold 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-5 flex flex-col" style="padding-top: 10px;">
+            
+            <!-- Header -->
+            <div class="flex items-center justify-between mb-5">
+                <button class="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+                    <i class="fas fa-chevron-left text-white/60 text-[13px]"></i>
+                </button>
+                <h1 class="text-white font-semibold text-[17px]">解锁惩罚归属</h1>
+                <div class="w-9"></div>
+            </div>
+
+            <!-- Unlock Hero -->
+            <div class="text-center mb-6">
+                <div class="w-[80px] h-[80px] rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center mx-auto mb-4 shimmer-gold">
+                    <i class="fas fa-crown text-white text-[32px]"></i>
+                </div>
+                <h2 class="text-[22px] font-bold text-white mb-1">揭秘时刻</h2>
+                <p class="text-white/45 text-[14px]">解锁后查看所有惩罚的作者</p>
+            </div>
+
+            <!-- Status Card -->
+            <div class="glass-card p-4 mb-5 border border-amber-500/25" style="background: rgba(251,191,36,0.06);">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-[10px] bg-amber-500/15 flex items-center justify-center">
+                            <i class="fas fa-clock text-amber-400 text-[13px]"></i>
+                        </div>
+                        <div>
+                            <p class="text-white text-[14px] font-medium">群组已过期</p>
+                            <p class="text-white/40 text-[12px]">2025年4月6日 过期</p>
+                        </div>
+                    </div>
+                    <span class="badge badge-success text-[11px]">
+                        可解锁
+                    </span>
+                </div>
+            </div>
+
+            <!-- Preview (Locked) -->
+            <div class="mb-5">
+                <p class="text-white/50 text-[13px] font-medium mb-3">惩罚归属预览</p>
+                <div class="glass-card overflow-hidden">
+                    <!-- Header -->
+                    <div class="grid grid-cols-3 gap-2 p-3 bg-white/[0.03] text-[11px] text-white/40 font-medium">
+                        <span>惩罚内容</span>
+                        <span>给谁的</span>
+                        <span>作者</span>
+                    </div>
+                    <!-- Rows -->
+                    <div class="divide-y divide-white/[0.04]">
+                        <div class="grid grid-cols-3 gap-2 p-3 text-[13px]">
+                            <span class="text-white/70">🎤 唱情歌</span>
+                            <span class="text-white/50">Mike</span>
+                            <span class="text-white/25 blur-sm">Lisa</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 p-3 text-[13px]">
+                            <span class="text-white/70">💃 跳舞</span>
+                            <span class="text-white/50">CJ</span>
+                            <span class="text-white/25 blur-sm">Alex</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 p-3 text-[13px]">
+                            <span class="text-white/70">🎭 学猫叫</span>
+                            <span class="text-white/50">CJ</span>
+                            <span class="text-white/25 blur-sm">Emma</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 p-3 text-[13px]">
+                            <span class="text-white/70">🍺 请客</span>
+                            <span class="text-white/50">Lisa</span>
+                            <span class="text-white/25 blur-sm">Jay</span>
+                        </div>
+                    </div>
+                    <!-- Locked Overlay -->
+                    <div class="p-3 text-center border-t border-white/[0.04]">
+                        <span class="text-white/40 text-[12px]">
+                            <i class="fas fa-lock mr-1 text-[10px]"></i>
+                            还有 23 条惩罚记录
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Privacy Notice -->
+            <div class="glass-card p-3.5 mb-5 border border-cyan-500/20" style="background: rgba(6,182,212,0.06);">
+                <div class="flex items-start gap-3">
+                    <div class="w-7 h-7 rounded-[8px] bg-cyan-500/15 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user-secret text-cyan-400 text-[11px]"></i>
+                    </div>
+                    <div>
+                        <p class="text-cyan-400 text-[13px] font-medium mb-0.5">悄悄解锁</p>
+                        <p class="text-white/45 text-[12px] leading-relaxed">
+                            你的解锁行为完全匿名，不会通知任何群组成员。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacer -->
+            <div class="flex-1"></div>
+
+            <!-- Price -->
+            <div class="text-center mb-4">
+                <span class="text-white/40 text-[13px]">解锁价格</span>
+                <p class="text-[28px] font-bold text-white">$3.00</p>
+                <p class="text-white/30 text-[12px]">一次性付费，永久查看</p>
+            </div>
+
+            <!-- Unlock Button -->
+            <button class="w-full py-[18px] rounded-[16px] bg-gradient-to-r from-amber-500 to-amber-400 text-white font-semibold text-[17px] flex items-center justify-center gap-2 mb-3"
+                    style="box-shadow: 0 8px 24px rgba(251,191,36,0.3);">
+                <i class="fas fa-unlock text-[14px]"></i>
+                <span>立即解锁</span>
+            </button>
+
+            <!-- Terms -->
+            <p class="text-white/25 text-[11px] text-center mb-8">
+                点击解锁即表示同意
+                <a href="#" class="text-cyan-400">服务条款</a>
+                和
+                <a href="#" class="text-cyan-400">隐私政策</a>
+            </p>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

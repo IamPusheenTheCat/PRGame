@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入姓名 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=SF+Pro+Text:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-6 flex flex-col" style="padding-top: 16px;">
+            
+            <!-- Back Button -->
+            <button class="w-10 h-10 rounded-full bg-white/[0.06] flex items-center justify-center mb-6">
+                <i class="fas fa-chevron-left text-white/60 text-sm"></i>
+            </button>
+
+            <!-- Avatar Preview -->
+            <div class="flex justify-center mb-6">
+                <div class="relative">
+                    <div class="member-avatar size-lg avatar-gradient-you" style="width: 96px; height: 96px; font-size: 28px;">
+                        Alex
+                    </div>
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h1 class="text-[28px] font-bold text-white text-center mb-2 tracking-tight">你是谁？</h1>
+            <p class="text-white/50 text-center text-[15px] mb-6">输入你的名字让队友认识你</p>
+
+            <!-- Name Input -->
+            <div class="mb-5">
+                <label class="text-white/50 text-[13px] mb-2 block font-medium">你的名字</label>
+                <input type="text" 
+                       class="input-field" 
+                       placeholder="输入名字..."
+                       value="Alex">
+                <p class="text-white/30 text-[12px] mt-2">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    名字超过8个字母将显示为首字母缩写
+                </p>
+            </div>
+
+            <!-- Instrument Selection (Multi-select) -->
+            <div class="mb-6">
+                <label class="text-white/50 text-[13px] mb-3 block font-medium">选择你的乐器（可多选）</label>
+                <div class="instrument-grid">
+                    <div class="instrument-chip">
+                        <span class="icon">🎸</span>
+                        <span>吉他</span>
+                    </div>
+                    <div class="instrument-chip selected">
+                        <span class="icon">🥁</span>
+                        <span>鼓</span>
+                    </div>
+                    <div class="instrument-chip">
+                        <span class="icon">🎹</span>
+                        <span>键盘</span>
+                    </div>
+                    <div class="instrument-chip">
+                        <span class="icon">🎤</span>
+                        <span>主唱</span>
+                    </div>
+                    <div class="instrument-chip selected">
+                        <span class="icon">🎸</span>
+                        <span>贝斯</span>
+                    </div>
+                    <div class="instrument-chip">
+                        <span class="icon">🎷</span>
+                        <span>萨克斯</span>
+                    </div>
+                    <div class="instrument-chip">
+                        <span class="icon">🎺</span>
+                        <span>小号</span>
+                    </div>
+                    <div class="instrument-chip">
+                        <span class="icon">🎻</span>
+                        <span>小提琴</span>
+                    </div>
+                    <div class="instrument-chip">
+                        <span class="icon">🪕</span>
+                        <span>其他</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spacer -->
+            <div class="flex-1"></div>
+
+            <!-- Preview Card -->
+            <div class="glass-card p-4 mb-5">
+                <p class="text-white/40 text-[12px] mb-3 font-medium">预览效果</p>
+                <div class="flex items-center gap-4">
+                    <div class="member-avatar avatar-gradient-you">
+                        Alex
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold text-[16px]">Alex</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-white/50 text-[13px]">🥁 鼓</span>
+                            <span class="text-white/30">·</span>
+                            <span class="text-white/50 text-[13px]">🎸 贝斯</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Long Name Example -->
+            <div class="glass-card p-4 mb-5 border border-white/[0.06]">
+                <p class="text-white/40 text-[12px] mb-3 font-medium">长名字示例</p>
+                <div class="flex items-center gap-4">
+                    <div class="member-avatar avatar-gradient-3">
+                        CJ
+                    </div>
+                    <div>
+                        <p class="text-white font-semibold text-[16px]">ChristopherJohnson</p>
+                        <p class="text-white/40 text-[12px]">超过8个字母 → 显示为 "CJ"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Continue Button -->
+            <button class="btn-primary mb-8 flex items-center justify-center gap-2">
+                <span>继续</span>
+                <i class="fas fa-arrow-right text-[14px]"></i>
+            </button>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

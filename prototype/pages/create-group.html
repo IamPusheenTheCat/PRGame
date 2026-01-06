@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>创建群组 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-6 flex flex-col" style="padding-top: 16px;">
+            
+            <!-- Back Button -->
+            <button class="w-10 h-10 rounded-full bg-white/[0.06] flex items-center justify-center mb-5">
+                <i class="fas fa-chevron-left text-white/60 text-sm"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-12 h-12 rounded-[14px] bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                    <i class="fas fa-crown text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-[20px] font-bold text-white">创建新群组</h1>
+                    <span class="badge badge-admin text-[11px]">Admin</span>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="space-y-5 flex-1 overflow-y-auto pb-4">
+                
+                <!-- Group Name -->
+                <div>
+                    <label class="text-white/50 text-[13px] mb-2 block font-medium">群组名称</label>
+                    <input type="text" 
+                           class="input-field" 
+                           placeholder="例如：摇滚乐队"
+                           value="周末排练小队">
+                </div>
+
+                <!-- Group Emoji -->
+                <div>
+                    <label class="text-white/50 text-[13px] mb-3 block font-medium">群组标识</label>
+                    <div class="flex gap-3 flex-wrap">
+                        <button class="w-12 h-12 rounded-[14px] bg-white/[0.04] flex items-center justify-center text-[22px] ring-2 ring-[#ff5757]">🎸</button>
+                        <button class="w-12 h-12 rounded-[14px] bg-white/[0.04] flex items-center justify-center text-[22px]">🎤</button>
+                        <button class="w-12 h-12 rounded-[14px] bg-white/[0.04] flex items-center justify-center text-[22px]">🎹</button>
+                        <button class="w-12 h-12 rounded-[14px] bg-white/[0.04] flex items-center justify-center text-[22px]">🥁</button>
+                        <button class="w-12 h-12 rounded-[14px] bg-white/[0.04] flex items-center justify-center text-[22px]">🎷</button>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <div class="section-divider"></div>
+
+                <!-- Max Punishments -->
+                <div>
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="text-white/50 text-[13px] font-medium">每人最多惩罚项目数</label>
+                        <span class="text-white font-bold text-[18px]">5</span>
+                    </div>
+                    <input type="range" min="1" max="10" value="5" 
+                           class="w-full h-1.5 rounded-full appearance-none cursor-pointer"
+                           style="background: linear-gradient(90deg, #ff5757 50%, rgba(255,255,255,0.08) 50%);">
+                    <div class="flex justify-between text-white/30 text-[11px] mt-2">
+                        <span>1</span>
+                        <span>10</span>
+                    </div>
+                </div>
+
+                <!-- Expiry Time -->
+                <div>
+                    <label class="text-white/50 text-[13px] mb-3 block font-medium">群组过期时间</label>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button class="py-3 px-3 rounded-[12px] bg-white/[0.04] text-white/50 text-[13px] font-medium">1个月</button>
+                        <button class="py-3 px-3 rounded-[12px] bg-[#ff5757]/15 border border-[#ff5757]/40 text-[#ff5757] text-[13px] font-medium">3个月</button>
+                        <button class="py-3 px-3 rounded-[12px] bg-white/[0.04] text-white/50 text-[13px] font-medium">6个月</button>
+                    </div>
+                    <p class="text-white/30 text-[11px] mt-2">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        过期后成员可付费解锁惩罚归属
+                    </p>
+                </div>
+
+                <!-- Divider -->
+                <div class="section-divider"></div>
+
+                <!-- Settings -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-white text-[14px] font-medium">允许成员悄悄解锁</p>
+                            <p class="text-white/35 text-[12px]">解锁时不通知其他人</p>
+                        </div>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-white text-[14px] font-medium">AI 智能匹配惩罚</p>
+                            <p class="text-white/35 text-[12px]">根据迟到者心情推荐惩罚</p>
+                        </div>
+                        <div class="toggle-switch active"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Create Button -->
+            <div class="pt-3 pb-8">
+                <button class="btn-primary flex items-center justify-center gap-2">
+                    <i class="fas fa-plus text-[14px]"></i>
+                    <span>创建群组</span>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>

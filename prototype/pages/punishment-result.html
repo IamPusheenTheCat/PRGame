@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>惩罚结果 - 惩罚轮盘</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        * { 
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        body { margin: 0; padding: 0; background: #000; }
+        
+        @keyframes shake {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-8deg); }
+            75% { transform: rotate(8deg); }
+        }
+        
+        .shake { animation: shake 0.4s ease-in-out; }
+    </style>
+</head>
+<body>
+    <div class="iphone-screen">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+        
+        <!-- Confetti -->
+        <div class="confetti-container">
+            <div class="confetti" style="left: 10%; animation-delay: 0s; background: #ff5757; border-radius: 2px;"></div>
+            <div class="confetti" style="left: 20%; animation-delay: 0.2s; background: #fbbf24; border-radius: 50%;"></div>
+            <div class="confetti" style="left: 30%; animation-delay: 0.4s; background: #06b6d4; border-radius: 2px;"></div>
+            <div class="confetti" style="left: 50%; animation-delay: 0.1s; background: #8b5cf6; border-radius: 50%;"></div>
+            <div class="confetti" style="left: 70%; animation-delay: 0.3s; background: #10b981; border-radius: 2px;"></div>
+            <div class="confetti" style="left: 85%; animation-delay: 0.5s; background: #f472b6; border-radius: 50%;"></div>
+        </div>
+        
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="status-bar-time">9:41</span>
+            <div class="status-bar-icons">
+                <i class="fas fa-signal" style="font-size: 15px;"></i>
+                <i class="fas fa-wifi" style="font-size: 15px;"></i>
+                <i class="fas fa-battery-full" style="font-size: 17px;"></i>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content-area-full px-6 flex flex-col items-center justify-center">
+            
+            <!-- Result Icon -->
+            <div class="bounce-in mb-5">
+                <div class="w-[100px] h-[100px] rounded-full bg-gradient-to-br from-[#ff5757] to-[#ff8c42] flex items-center justify-center"
+                     style="box-shadow: 0 0 50px rgba(255,87,87,0.4);">
+                    <span class="text-[52px] shake">🎭</span>
+                </div>
+            </div>
+
+            <!-- Result Title -->
+            <h1 class="text-[26px] font-bold text-white text-center mb-2 bounce-in" style="animation-delay: 0.15s;">
+                学猫叫一分钟！
+            </h1>
+            <p class="text-white/45 text-center text-[15px] mb-6 bounce-in" style="animation-delay: 0.25s;">
+                必须录视频发群里 📹
+            </p>
+
+            <!-- AI Explanation -->
+            <div class="glass-card p-4 w-full mb-5 border border-cyan-500/20 bounce-in" style="animation-delay: 0.35s; background: rgba(6,182,212,0.06);">
+                <div class="flex items-start gap-3">
+                    <div class="w-9 h-9 rounded-[10px] bg-cyan-500/15 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-robot text-cyan-400 text-[13px]"></i>
+                    </div>
+                    <div>
+                        <p class="text-cyan-400 text-[13px] font-medium mb-1">AI 推荐理由</p>
+                        <p class="text-white/50 text-[12px] leading-relaxed">
+                            根据你"尴尬"的心情和"希望轻松一点"的偏好，学猫叫是个既有趣又不太过分的惩罚 😺
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Who Wrote This -->
+            <div class="glass-card p-4 w-full mb-5 bounce-in" style="animation-delay: 0.45s;">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
+                            <i class="fas fa-user-secret text-white/50 text-[14px]"></i>
+                        </div>
+                        <div>
+                            <p class="text-white text-[14px] font-medium">谁写的这个惩罚？</p>
+                            <p class="text-white/40 text-[12px]">完成后可以猜测</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1.5 rounded-[8px] bg-white/[0.04] text-white/50 text-[12px]">
+                        <i class="fas fa-lock mr-1 text-[10px]"></i>神秘
+                    </span>
+                </div>
+            </div>
+
+            <!-- User Being Punished -->
+            <div class="flex items-center gap-3 mb-6 bounce-in" style="animation-delay: 0.55s;">
+                <div class="member-avatar size-sm avatar-gradient-3" style="box-shadow: 0 0 0 2px #ff5757;">CJ</div>
+                <div>
+                    <p class="text-white font-medium text-[15px]">CJ</p>
+                    <p class="text-white/40 text-[13px]">准备接受惩罚吧！</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="w-full space-y-3 bounce-in" style="animation-delay: 0.65s;">
+                <button class="btn-primary flex items-center justify-center gap-2">
+                    <i class="fas fa-play text-[13px]"></i>
+                    <span>开始执行惩罚</span>
+                </button>
+                <button class="btn-secondary flex items-center justify-center gap-2">
+                    <i class="fas fa-share text-[13px]"></i>
+                    <span>分享到群组</span>
+                </button>
+            </div>
+
+            <!-- Skip Option -->
+            <button class="text-white/25 text-[13px] mt-5 bounce-in" style="animation-delay: 0.75s;">
+                <i class="fas fa-forward mr-1"></i>
+                跳过此惩罚 (Admin)
+            </button>
+
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="home-indicator"></div>
+    </div>
+</body>
+</html>
