@@ -14,8 +14,9 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.pusheen.punishmentroulette",
-      "buildNumber": "1",
+      "bundleIdentifier": "com.taoranmr.punishmentroulette",
+      "buildNumber": "2",
+      "icon": "./assets/icon.png",
       "infoPlist": {
         "CFBundleDisplayName": "惩罚轮盘",
         "CFBundleAllowMixedLocalizations": true,
@@ -27,7 +28,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1a1a2e"
       },
-      "package": "com.pusheen.punishmentroulette",
+      "package": "com.taoranmr.punishmentroulette",
       "edgeToEdgeEnabled": true
     },
     "web": {
@@ -39,9 +40,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "your-project-id-here"
+        "projectId": "a9c9b099-bc63-4a75-9ffd-b5c98d831ca8"
       }
     },
-    "owner": "iampusheenthecat"
+    "owner": "taoranmr"
   }
 }
