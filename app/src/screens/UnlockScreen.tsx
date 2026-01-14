@@ -16,6 +16,7 @@ import Colors from '../constants/colors';
 import { useAuthStore } from '../stores/authStore';
 import { useGroupStore } from '../stores/groupStore';
 import { INSTRUMENTS, GENERAL_ICONS } from '../constants/instruments';
+import { requestRatingIfAppropriate } from '../lib/rating';
 
 type RootStackParamList = {
   Unlock: undefined;
@@ -33,7 +34,7 @@ interface PunishmentWithAuthor {
 
 export function UnlockScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { user } = useAuthStore();
+  const { user, recordPaymentIntent } = useAuthStore();
   const { 
     currentGroup, 
     hasUnlocked, 
@@ -91,6 +92,11 @@ export function UnlockScreen() {
           onPress: async () => {
             setIsUnlocking(true);
             try {
+              // 🎯 记录用户的付费意愿（在后台记录，不阻塞主流程）
+              recordPaymentIntent().catch(err => 
+                console.error('Failed to record payment intent:', err)
+              );
+              
               // 模拟付费延迟
               await new Promise(resolve => setTimeout(resolve, 1500));
               
@@ -99,6 +105,11 @@ export function UnlockScreen() {
               // 加载带作者信息的惩罚列表
               const data = await getPunishmentsWithAuthors(currentGroup!.id);
               setPunishments(data);
+              
+              // 🌟 请求用户评分（在后台进行，不阻塞主流程）
+              requestRatingIfAppropriate().catch(err =>
+                console.error('Failed to request rating:', err)
+              );
               
               Alert.alert('成功', '解锁成功！现在可以查看所有惩罚的作者了');
             } catch (error: any) {

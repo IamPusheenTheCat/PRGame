@@ -1,48 +1,33 @@
 {
   "expo": {
-    "name": "惩罚轮盘",
-    "slug": "punishment-roulette",
+    "name": "app",
+    "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#1a1a2e"
+      "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": false,
-      "bundleIdentifier": "com.taoranmr.punishmentroulette",
-      "buildNumber": "2",
-      "icon": "./assets/icon.png",
-      "infoPlist": {
-        "CFBundleDisplayName": "惩罚轮盘",
-        "CFBundleAllowMixedLocalizations": true,
-        "ITSAppUsesNonExemptEncryption": false
-      }
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#1a1a2e"
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.taoranmr.punishmentroulette",
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-secure-store"
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "a9c9b099-bc63-4a75-9ffd-b5c98d831ca8"
-      }
-    },
-    "owner": "taoranmr"
+    ]
   }
 }

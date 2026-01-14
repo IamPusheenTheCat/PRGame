@@ -28,12 +28,41 @@ type RootStackParamList = {
 export function RoundTableScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { user } = useAuthStore();
-  const { currentGroup, members, loadMembers, punishments, loadPunishments } = useGroupStore();
+  const { currentGroup, members, loadMembers, punishments, loadPunishments, loadUserGroups, clearGroup } = useGroupStore();
 
   console.log('[RoundTable] Render - currentGroup:', currentGroup?.name, 'members:', members.length);
 
+  // 处理被踢出群组
+  const handleKicked = async () => {
+    console.log('[RoundTable] User was kicked from group');
+    
+    // 先清除当前群组状态
+    clearGroup();
+    
+    // 重新加载用户群组列表
+    if (user) {
+      await loadUserGroups(user.id);
+    }
+    
+    // 立即导航并显示提示
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'JoinCreate' as never }],
+    });
+    
+    // 延迟显示提示，确保页面已经切换
+    setTimeout(() => {
+      Alert.alert(
+        '已被移除',
+        '您已被管理员移除，请加入新的群组吧！',
+        [{ text: '确定' }],
+        { cancelable: false }
+      );
+    }, 300);
+  };
+
   // 开启实时订阅
-  useRealtime(currentGroup?.id || null);
+  useRealtime(currentGroup?.id || null, handleKicked);
 
   useEffect(() => {
     if (currentGroup?.id) {

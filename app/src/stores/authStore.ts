@@ -13,6 +13,7 @@ interface AuthState {
   initialize: () => Promise<void>;
   login: (name: string, instruments: string[]) => Promise<User>;
   updateUser: (updates: Partial<User>) => Promise<void>;
+  recordPaymentIntent: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -166,11 +167,57 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     }
   },
 
+  recordPaymentIntent: async () => {
+    const { user } = get();
+    if (!user) {
+      console.log('[Auth] Cannot record payment intent: no user');
+      return;
+    }
+
+    // 如果已经记录过，就不再重复记录
+    if (user.showed_payment_intent) {
+      console.log('[Auth] Payment intent already recorded');
+      return;
+    }
+
+    try {
+      console.log('[Auth] Recording payment intent for user:', user.id);
+      const { data, error } = await withTimeout(
+        supabase
+          .from('pr_users')
+          .update({ showed_payment_intent: true })
+          .eq('id', user.id)
+          .select()
+          .single(),
+        10000
+      );
+
+      if (error) {
+        console.error('[Auth] Failed to record payment intent:', error);
+        throw error;
+      }
+      
+      if (data) {
+        set({ user: data });
+        console.log('[Auth] Payment intent recorded successfully');
+      }
+    } catch (error) {
+      console.error('[Auth] Error recording payment intent:', error);
+      // 不抛出错误，让主流程继续
+    }
+  },
+
   logout: async () => {
     console.log('[Auth] Logging out');
-    // 清除设备 ID，这样下次登录会是全新开始
+    // 清除设备 ID，这样下次可以输入新的名字创建新账号
     await AsyncStorage.removeItem(DEVICE_ID_KEY);
-    set({ user: null, isInitialized: false });
+    
+    // 保持 isInitialized: true，避免显示加载界面
+    set({ user: null, isInitialized: true });
+    
+    // 清除群组状态
+    // 注意：我们不直接 import useGroupStore 来避免循环依赖
+    // 而是在 logout 后让 AppNavigator 重新初始化
     console.log('[Auth] Logged out - device ID cleared');
   },
 }));

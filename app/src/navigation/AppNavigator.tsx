@@ -28,7 +28,7 @@ export type RootStackParamList = {
   Onboarding: undefined;
   Welcome: undefined;
   Login: undefined;
-  JoinCreate: undefined;
+  JoinCreate: { skipAutoRedirect?: boolean } | undefined;
   CreateGroup: undefined;
   IconSelection: { is_band?: boolean };
   RoundTable: undefined;
@@ -54,9 +54,10 @@ function LoadingScreen() {
 
 export function AppNavigator() {
   const { user, isLoading, isInitialized, initialize } = useAuthStore();
-  const { currentGroup, loadUserGroups, userGroups, switchGroup, loadMembers, loadPunishments } = useGroupStore();
+  const { currentGroup, loadUserGroups, userGroups, switchGroup, loadMembers, loadPunishments, clearGroup } = useGroupStore();
   const [showOnboarding, setShowOnboarding] = useState<boolean>(true);
   const [isCheckingOnboarding, setIsCheckingOnboarding] = useState(true);
+  const [isLoadingGroups, setIsLoadingGroups] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -94,25 +95,74 @@ export function AppNavigator() {
   // 当用户登录后，加载用户的所有群组
   useEffect(() => {
     const loadGroups = async () => {
-      if (user && userGroups.length === 0) {
-        console.log('[Nav] Loading user groups...');
-        const groups = await loadUserGroups(user.id);
+      if (user) {
+        console.log('[Nav] User logged in, loading groups...');
+        setIsLoadingGroups(true);
         
-        // 如果有群组但没有当前群组，自动切换到第一个
-        if (groups.length > 0 && !currentGroup) {
-          switchGroup(groups[0]);
-          await loadMembers(groups[0].id);
-          await loadPunishments(groups[0].id);
+        // 先检查是否已经有 currentGroup（可能是从缓存恢复的）
+        if (currentGroup) {
+          console.log('[Nav] Already has currentGroup:', currentGroup.name);
+          setIsLoadingGroups(false);
+          return;
         }
+        
+        try {
+          const groups = await loadUserGroups(user.id);
+          console.log('[Nav] Loaded groups:', groups.length);
+          
+          // 如果有群组但没有当前群组，尝试恢复上次的群组
+          if (groups.length > 0) {
+            // 尝试获取上次使用的群组 ID
+            const lastGroupId = await useGroupStore.getState().getLastGroupId();
+            console.log('[Nav] Last used group ID:', lastGroupId);
+            
+            // 查找上次使用的群组
+            const lastGroup = lastGroupId 
+              ? groups.find(g => g.id === lastGroupId)
+              : null;
+            
+            // 如果找到上次的群组，使用它；否则使用第一个
+            const targetGroup = lastGroup || groups[0];
+            console.log('[Nav] Auto-switching to group:', targetGroup.name, lastGroup ? '(last used)' : '(first)');
+            
+            await switchGroup(targetGroup);
+            await loadMembers(targetGroup.id);
+            await loadPunishments(targetGroup.id);
+          } else {
+            console.log('[Nav] No groups found for user');
+          }
+        } finally {
+          setIsLoadingGroups(false);
+        }
+      } else {
+        // 用户登出时清空群组状态
+        console.log('[Nav] User logged out, clearing group state');
+        clearGroup();
+        setIsLoadingGroups(false);
       }
     };
     
     loadGroups();
   }, [user]);
 
-  console.log('[Nav] Render state:', { isInitialized, isLoading, isCheckingOnboarding, user: !!user, currentGroup: !!currentGroup });
+  console.log('[Nav] Render state:', { 
+    isInitialized, 
+    isLoading, 
+    isCheckingOnboarding, 
+    isLoadingGroups,
+    user: !!user, 
+    currentGroup: !!currentGroup,
+    userGroups: userGroups.length 
+  });
 
+  // 如果还在初始化、加载认证或检查 onboarding，显示加载屏幕
   if (!isInitialized || isLoading || isCheckingOnboarding) {
+    return <LoadingScreen />;
+  }
+  
+  // 如果用户已登录但群组还在加载中，也显示加载屏幕
+  if (user && isLoadingGroups) {
+    console.log('[Nav] Waiting for groups to load...');
     return <LoadingScreen />;
   }
 
@@ -124,13 +174,26 @@ export function AppNavigator() {
     if (!user) {
       return showOnboarding ? 'Onboarding' : 'Welcome';
     }
-    if (!currentGroup) return 'JoinCreate';
-    if (!hasSelectedIcons) return 'IconSelection';
-    return 'RoundTable';
+    
+    // 如果有当前群组，进入主界面
+    if (currentGroup) {
+      if (!hasSelectedIcons) return 'IconSelection';
+      return 'RoundTable';
+    }
+    
+    // 如果有用户群组列表但还没有当前群组，可能是正在加载
+    // 这种情况下，先显示 RoundTable，让 useEffect 完成加载
+    if (userGroups.length > 0) {
+      console.log('[Nav] Has userGroups but no currentGroup, will auto-switch in useEffect');
+      return 'RoundTable';
+    }
+    
+    // 没有群组，去加入/创建页面
+    return 'JoinCreate';
   };
 
   const initialRoute = getInitialRouteName();
-  console.log('[Nav] Initial route:', initialRoute);
+  console.log('[Nav] Initial route:', initialRoute, '(currentGroup:', !!currentGroup, 'userGroups:', userGroups.length, ')');
 
   return (
     <NavigationContainer>

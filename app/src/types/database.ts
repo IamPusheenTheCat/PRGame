@@ -7,6 +7,7 @@ export interface User {
   avatar_initials: string | null;
   instruments: string[];
   punctuality: 'punctual' | 'late' | null; // 用户自认守时习惯
+  showed_payment_intent?: boolean; // 是否点击过付费按钮，表示有付费意愿
   created_at: string;
 }
 

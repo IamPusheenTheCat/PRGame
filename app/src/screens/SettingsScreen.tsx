@@ -29,7 +29,7 @@ type RootStackParamList = {
 export function SettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const { user, logout } = useAuthStore();
-  const { currentGroup, userGroups, members, leaveGroup, transferAdmin, updateGroupSettings, switchGroup, loadMembers, loadPunishments, clearGroup } = useGroupStore();
+  const { currentGroup, userGroups, members, leaveGroup, kickMember, transferAdmin, updateGroupSettings, switchGroup, loadMembers, loadPunishments, clearGroup } = useGroupStore();
 
   const [showAdminModal, setShowAdminModal] = useState(false);
   const [selectedNewAdmin, setSelectedNewAdmin] = useState<string | null>(null);
@@ -41,6 +41,7 @@ export function SettingsScreen() {
   // 设置相关状态
   const [showPunishmentModal, setShowPunishmentModal] = useState(false);
   const [showExpiryModal, setShowExpiryModal] = useState(false);
+  const [showMembersModal, setShowMembersModal] = useState(false);
   const [tempMaxPunishments, setTempMaxPunishments] = useState(currentGroup?.max_punishments_per_person || 3);
   const [isSaving, setIsSaving] = useState(false);
 
@@ -69,6 +70,19 @@ export function SettingsScreen() {
   };
 
   const handleLeaveGroup = () => {
+    console.log('[Settings] handleLeaveGroup called', { 
+      isAdmin, 
+      hasUser: !!user, 
+      hasGroup: !!currentGroup,
+      otherMembersCount: otherMembers.length 
+    });
+    
+    if (!user || !currentGroup) {
+      console.log('[Settings] Missing user or currentGroup');
+      Alert.alert('错误', '无法获取用户或群组信息');
+      return;
+    }
+    
     if (isAdmin) {
       // 如果是 admin，需要先选择新 admin
       if (otherMembers.length === 0) {
@@ -82,10 +96,8 @@ export function SettingsScreen() {
               text: '解散',
               style: 'destructive',
               onPress: async () => {
-                if (user && currentGroup) {
-                  await leaveGroup(currentGroup.id, user.id);
-                  navigateAfterLeave();
-                }
+                await leaveGroup(currentGroup.id, user.id);
+                navigateAfterLeave();
               },
             },
           ]
@@ -96,6 +108,7 @@ export function SettingsScreen() {
       }
     } else {
       // 非 admin 直接离开
+      console.log('[Settings] Non-admin leaving group');
       Alert.alert(
         '离开群组',
         '确定要离开这个群组吗？你的惩罚记录将会保留。',
@@ -105,10 +118,9 @@ export function SettingsScreen() {
             text: '离开',
             style: 'destructive',
             onPress: async () => {
-              if (user && currentGroup) {
-                await leaveGroup(currentGroup.id, user.id);
-                navigateAfterLeave();
-              }
+              console.log('[Settings] Leaving group:', currentGroup.id);
+              await leaveGroup(currentGroup.id, user.id);
+              navigateAfterLeave();
             },
           },
         ]
@@ -201,7 +213,7 @@ export function SettingsScreen() {
 
     Alert.alert(
       '退出登录',
-      '确定要退出登录吗？这将清除所有数据，你需要重新创建账号。',
+      '退出后将清除此设备的账号绑定，下次打开可以输入新的名字。\n\n你的群组和惩罚数据会保留在服务器上。',
       [
         { text: '取消', style: 'cancel' },
         {
@@ -216,11 +228,35 @@ export function SettingsScreen() {
             clearGroup();
             // 退出登录
             await logout();
-            // 导航到登录页面（输入姓名）
+            // 导航到欢迎页面
             navigation.reset({
               index: 0,
-              routes: [{ name: 'Login' }],
+              routes: [{ name: 'Welcome' }],
             });
+          },
+        },
+      ]
+    );
+  };
+
+  const handleKickMember = async (memberId: string, memberName: string) => {
+    if (!currentGroup || !user) return;
+
+    Alert.alert(
+      '移除成员',
+      `确定要将 ${memberName} 移出群组吗？`,
+      [
+        { text: '取消', style: 'cancel' },
+        {
+          text: '移除',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await kickMember(currentGroup.id, memberId);
+              Alert.alert('成功', `已将 ${memberName} 移出群组`);
+            } catch (error: any) {
+              Alert.alert('错误', error.message || '移除成员失败');
+            }
           },
         },
       ]
@@ -324,6 +360,24 @@ export function SettingsScreen() {
                 <FontAwesome name="chevron-right" size={14} color={Colors.text.muted} />
               </TouchableOpacity>
             </Card>
+
+            <Card style={styles.settingCard}>
+              <TouchableOpacity 
+                style={styles.settingRow}
+                onPress={() => setShowMembersModal(true)}
+              >
+                <View style={styles.settingInfo}>
+                  <FontAwesome name="users" size={18} color={Colors.warning} />
+                  <View style={styles.settingText}>
+                    <Text style={styles.settingLabel}>管理成员</Text>
+                    <Text style={styles.settingDesc}>
+                      {members.length} 位成员
+                    </Text>
+                  </View>
+                </View>
+                <FontAwesome name="chevron-right" size={14} color={Colors.text.muted} />
+              </TouchableOpacity>
+            </Card>
           </View>
         )}
 
@@ -410,7 +464,7 @@ export function SettingsScreen() {
                   <Text style={[styles.settingLabel, { color: Colors.danger }]}>
                     退出登录
                   </Text>
-                  <Text style={styles.settingDesc}>清除所有数据并重新开始</Text>
+                  <Text style={styles.settingDesc}>解除设备绑定，下次可输入新名字</Text>
                 </View>
               </View>
               <FontAwesome name="chevron-right" size={14} color={Colors.text.muted} />
@@ -611,6 +665,73 @@ export function SettingsScreen() {
         </View>
       </Modal>
 
+      {/* 管理成员弹窗 */}
+      <Modal
+        visible={showMembersModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowMembersModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>管理成员</Text>
+            <Text style={styles.modalSubtitle}>
+              {members.length} 位成员
+            </Text>
+
+            <ScrollView style={styles.memberList}>
+              {members.map((member) => {
+                const memberUser = member.user;
+                if (!memberUser) return null;
+                
+                const isSelf = memberUser.id === user?.id;
+                const isMemberAdmin = memberUser.id === currentGroup?.admin_id;
+
+                return (
+                  <View
+                    key={member.id}
+                    style={styles.memberItem}
+                  >
+                    <MemberAvatar
+                      name={memberUser.name}
+                      id={memberUser.id}
+                      size="md"
+                    />
+                    <View style={styles.memberInfo}>
+                      <Text style={styles.memberName}>
+                        {memberUser.name}
+                        {isSelf && ' (你)'}
+                      </Text>
+                      {isMemberAdmin && (
+                        <Text style={styles.memberRole}>管理员</Text>
+                      )}
+                    </View>
+                    {!isSelf && !isMemberAdmin && (
+                      <TouchableOpacity
+                        style={styles.kickButton}
+                        onPress={() => {
+                          setShowMembersModal(false);
+                          handleKickMember(memberUser.id, memberUser.name);
+                        }}
+                      >
+                        <FontAwesome name="times-circle" size={20} color={Colors.danger} />
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                );
+              })}
+            </ScrollView>
+
+            <Button
+              title="关闭"
+              variant="ghost"
+              onPress={() => setShowMembersModal(false)}
+              style={{ marginTop: 16 }}
+            />
+          </View>
+        </View>
+      </Modal>
+
       {/* 群组切换弹窗 */}
       <Modal
         visible={showGroupSwitcher}
@@ -635,7 +756,7 @@ export function SettingsScreen() {
                   ]}
                   onPress={async () => {
                     if (group.id !== currentGroup?.id) {
-                      switchGroup(group);
+                      await switchGroup(group);
                       await loadMembers(group.id);
                       await loadPunishments(group.id);
                     }
@@ -664,7 +785,7 @@ export function SettingsScreen() {
                 style={styles.addGroupItem}
                 onPress={() => {
                   setShowGroupSwitcher(false);
-                  navigation.navigate('JoinCreate');
+                  navigation.navigate('JoinCreate', { skipAutoRedirect: true });
                 }}
               >
                 <View style={styles.addGroupIcon}>
@@ -839,11 +960,21 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: Colors.primary,
   },
-  memberName: {
+  memberInfo: {
     flex: 1,
+  },
+  memberName: {
     fontSize: 16,
     fontWeight: '500',
     color: '#fff',
+  },
+  memberRole: {
+    fontSize: 12,
+    color: Colors.primary,
+    marginTop: 2,
+  },
+  kickButton: {
+    padding: 8,
   },
   modalButtons: {
     flexDirection: 'row',

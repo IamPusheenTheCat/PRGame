@@ -199,7 +199,7 @@ ${profile.givenPunishments.length > 0 ? profile.givenPunishments.map(p => `- ${p
 ${profile.aiMessages.length > 0 ? profile.aiMessages.map(m => `- "${m}"`).join('\n') : '暂无'}
 
 ## 重要要求
-1. **必须生成 ${count} 个建议，不能为空！**
+1. **必须生成 ${count} 个建议，不能为空！一定要个性化，尽量避免生成给谁都一样的惩罚（例如请所有人吃饭、下次排练第一个到）**
 2. 如果有乐器信息，一定要玩乐器梗！例如：
    - 吉他手："用贝斯弹一首歌" / "不开失真效果弹完一首"
    - 鼓手："只用一只鼓棒打完一首" / "站着打鼓"  

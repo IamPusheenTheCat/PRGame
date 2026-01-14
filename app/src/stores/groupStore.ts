@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase, generateUniqueInviteCode } from '../lib/supabase';
 import {
   Group,
@@ -8,6 +9,8 @@ import {
   AISuggestion,
 } from '../types/database';
 import { generatePersonalizedSuggestions, UserProfile } from '../lib/deepseek';
+
+const LAST_GROUP_ID_KEY = '@last_group_id';
 
 interface GroupState {
   currentGroup: Group | null;
@@ -22,10 +25,11 @@ interface GroupState {
   createGroup: (name: string, emoji: string, adminId: string, maxPunishments: number, isBand: boolean) => Promise<Group>;
   joinGroup: (inviteCode: string, userId: string) => Promise<Group>;
   leaveGroup: (groupId: string, userId: string) => Promise<void>;
+  kickMember: (groupId: string, userId: string) => Promise<void>;  // 踢出成员
   loadGroup: (groupId: string) => Promise<void>;
   loadUserGroups: (userId: string) => Promise<Group[]>;  // 加载用户所有群组
-  switchGroup: (group: Group) => void;  // 切换当前群组
-  loadMembers: (groupId: string) => Promise<void>;
+  switchGroup: (group: Group) => Promise<void>;  // 切换当前群组
+  loadMembers: (groupId: string) => Promise<GroupMember[]>;
   loadPunishments: (groupId: string) => Promise<void>;
   loadPunishmentRecords: (groupId: string) => Promise<void>;
   
@@ -58,6 +62,9 @@ interface GroupState {
   
   // 清除状态
   clearGroup: () => void;
+  
+  // 获取最后使用的群组 ID
+  getLastGroupId: () => Promise<string | null>;
 }
 
 export const useGroupStore = create<GroupState>((set, get) => ({
@@ -193,6 +200,26 @@ export const useGroupStore = create<GroupState>((set, get) => ({
     });
   },
 
+  kickMember: async (groupId: string, userId: string) => {
+    console.log('[GroupStore] Kicking member:', userId, 'from group:', groupId);
+    
+    // 从群组中移除成员
+    const { error } = await supabase
+      .from('pr_members')
+      .delete()
+      .eq('group_id', groupId)
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('[GroupStore] Kick member error:', error);
+      throw error;
+    }
+
+    // 重新加载成员列表
+    await get().loadMembers(groupId);
+    console.log('[GroupStore] Member kicked successfully');
+  },
+
   loadGroup: async (groupId: string) => {
     const { data: group } = await supabase
       .from('pr_groups')
@@ -238,7 +265,7 @@ export const useGroupStore = create<GroupState>((set, get) => ({
     return groups || [];
   },
 
-  switchGroup: (group: Group) => {
+  switchGroup: async (group: Group) => {
     console.log('[GroupStore] Switching to group:', group.name);
     set({ 
       currentGroup: group,
@@ -247,6 +274,14 @@ export const useGroupStore = create<GroupState>((set, get) => ({
       punishmentRecords: [],
       hasUnlocked: false,
     });
+    
+    // 保存最后使用的群组 ID
+    try {
+      await AsyncStorage.setItem(LAST_GROUP_ID_KEY, group.id);
+      console.log('[GroupStore] Saved last group ID:', group.id);
+    } catch (error) {
+      console.error('[GroupStore] Failed to save last group ID:', error);
+    }
   },
 
   loadMembers: async (groupId: string) => {
@@ -261,6 +296,8 @@ export const useGroupStore = create<GroupState>((set, get) => ({
     if (members) {
       set({ members });
     }
+    
+    return members || [];
   },
 
   loadPunishments: async (groupId: string) => {
@@ -587,5 +624,16 @@ export const useGroupStore = create<GroupState>((set, get) => ({
       suggestions: new Map(),
       hasUnlocked: false,
     });
+  },
+  
+  getLastGroupId: async () => {
+    try {
+      const groupId = await AsyncStorage.getItem(LAST_GROUP_ID_KEY);
+      console.log('[GroupStore] Retrieved last group ID:', groupId);
+      return groupId;
+    } catch (error) {
+      console.error('[GroupStore] Failed to get last group ID:', error);
+      return null;
+    }
   },
 }));

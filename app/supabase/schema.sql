@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS pr_users (
   avatar_initials TEXT,
   instruments TEXT[] DEFAULT '{}',
   punctuality TEXT, -- 'punctual' 或 'late'，用户自认守时习惯
+  showed_payment_intent BOOLEAN DEFAULT FALSE, -- 用户是否点击过付费按钮，表示有付费意愿
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
@@ -27,6 +28,7 @@ COMMENT ON COLUMN pr_users.name IS '用户名称';
 COMMENT ON COLUMN pr_users.avatar_initials IS '头像显示文字（名字缩写）';
 COMMENT ON COLUMN pr_users.instruments IS '选择的乐器/图标ID数组';
 COMMENT ON COLUMN pr_users.punctuality IS '守时习惯: punctual=守时, late=承认迟到';
+COMMENT ON COLUMN pr_users.showed_payment_intent IS '是否点击过付费按钮，表示有付费意愿';
 
 -- =====================================================
 -- pr_groups - 群组表

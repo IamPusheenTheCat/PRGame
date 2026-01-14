@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,10 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Button, Card, MemberAvatar, SafeArea } from '../components/ui';
 import Colors from '../constants/colors';
@@ -17,7 +18,7 @@ import { useGroupStore } from '../stores/groupStore';
 
 type RootStackParamList = {
   Welcome: undefined;
-  JoinCreate: undefined;
+  JoinCreate: { skipAutoRedirect?: boolean } | undefined;
   CreateGroup: undefined;
   IconSelection: undefined;
   RoundTable: undefined;
@@ -25,16 +26,82 @@ type RootStackParamList = {
 
 export function JoinCreateScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const route = useRoute<RouteProp<RootStackParamList, 'JoinCreate'>>();
   const { user, logout } = useAuthStore();
-  const { joinGroup, isLoading } = useGroupStore();
+  const { joinGroup, isLoading, currentGroup, userGroups } = useGroupStore();
+  const [isCheckingGroups, setIsCheckingGroups] = useState(false);
+  const [hasChecked, setHasChecked] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  
+  // 检查是否需要跳过自动跳转（用户主动想加入新群组）
+  const skipAutoRedirect = route.params?.skipAutoRedirect || false;
+
+  // 检测用户是否已有群组，如果有则自动导航到圆桌
+  useEffect(() => {
+    // 如果正在登出，不执行任何操作
+    if (isLoggingOut) return;
+    // 如果用户主动想加入新群组，跳过自动跳转
+    if (skipAutoRedirect) {
+      console.log('[JoinCreate] Skip auto redirect - user wants to join new group');
+      setIsCheckingGroups(false);
+      setHasChecked(true);
+      return;
+    }
+    // 只在首次进入时检查
+    if (hasChecked) return;
+    
+    console.log('[JoinCreate] Checking groups...', { currentGroup: !!currentGroup, userGroupsLength: userGroups.length });
+    
+    // 如果已经有 currentGroup，立即导航
+    if (currentGroup) {
+      console.log('[JoinCreate] User has group, navigating to RoundTable immediately');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'RoundTable' }],
+      });
+      setHasChecked(true);
+      return;
+    }
+    
+    // 如果没有 currentGroup，给一点时间等待加载
+    setIsCheckingGroups(true);
+    const timer = setTimeout(() => {
+      // 再次检查是否正在登出
+      if (isLoggingOut) return;
+      
+      if (currentGroup) {
+        console.log('[JoinCreate] User has group after waiting, navigating to RoundTable');
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'RoundTable' }],
+        });
+      } else {
+        console.log('[JoinCreate] No groups found, staying on JoinCreate');
+        setIsCheckingGroups(false);
+      }
+      setHasChecked(true);
+    }, 500); // 等待 500ms 让群组加载完成
+
+    return () => clearTimeout(timer);
+  }, [currentGroup, hasChecked, isLoggingOut, skipAutoRedirect]);
 
   const handleGoBack = async () => {
-    // 退出登录并返回欢迎页
-    await logout();
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Welcome' }],
-    });
+    console.log('[JoinCreate] handleGoBack called');
+    // 设置登出标记，停止所有其他操作
+    setIsLoggingOut(true);
+    setIsCheckingGroups(false);
+    
+    try {
+      // 退出登录并返回欢迎页
+      await logout();
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Welcome' }],
+      });
+    } catch (error) {
+      console.error('[JoinCreate] Logout error:', error);
+      setIsLoggingOut(false);
+    }
   };
   
   const [mode, setMode] = useState<'select' | 'join'>('select');
@@ -83,6 +150,33 @@ export function JoinCreateScreen() {
       Alert.alert('错误', error.message || '加入群组失败');
     }
   };
+
+  // 显示加载状态，等待检查群组
+  if (isCheckingGroups && !isLoggingOut) {
+    return (
+      <SafeArea>
+        <View style={styles.content}>
+          {/* Header with back button */}
+          <View style={styles.header}>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={handleGoBack}
+            >
+              <FontAwesome name="chevron-left" size={16} color="#fff" />
+            </TouchableOpacity>
+            <Text style={styles.headerTitle}>开始游戏</Text>
+            <View style={{ width: 40 }} />
+          </View>
+          
+          {/* Loading indicator */}
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={Colors.primary} />
+            <Text style={styles.loadingText}>加载群组信息...</Text>
+          </View>
+        </View>
+      </SafeArea>
+    );
+  }
 
   if (mode === 'join') {
     return (
@@ -331,5 +425,15 @@ const styles = StyleSheet.create({
   },
   joinButton: {
     width: '100%',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 16,
+    fontSize: 15,
+    color: Colors.text.tertiary,
   },
 });
